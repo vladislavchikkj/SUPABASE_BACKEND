@@ -1,8 +1,9 @@
 const tsConfigPaths = require('tsconfig-paths')
+const path = require('path')
 
 // Register tsconfig paths
 tsConfigPaths.register({
-	baseUrl: './dist',
+	baseUrl: path.join(__dirname, 'dist'),
 	paths: {
 		'@utils/*': ['utils/*'],
 		'@controllers/*': ['controllers/*'],
