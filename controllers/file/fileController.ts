@@ -1,7 +1,7 @@
-import { handleError } from '@utils/erroHandler'
 import { Request, Response } from 'express'
 import fileServiceClass from '../../services/file/fileService'
 import { FileMoveParams } from '../../types/types'
+import { handleError } from '../../utils/erroHandler'
 
 const fileService = new fileServiceClass()
 

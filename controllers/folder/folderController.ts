@@ -1,6 +1,6 @@
-import { handleError } from '@utils/erroHandler'
 import { Request, Response } from 'express'
 import folderStorageService from '../../services/folder/folderService'
+import { handleError } from '../../utils/erroHandler'
 
 const folderService = new folderStorageService()
 
