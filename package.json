@@ -1,7 +1,7 @@
 {
 	"name": "ai-pdf-back",
 	"version": "1.0.0",
-	"main": "dist/index.ts",
+	"main": "public/index.ts",
 	"scripts": {
 		"build": "npx tsc",
 		"start": "node dist/index.js",
