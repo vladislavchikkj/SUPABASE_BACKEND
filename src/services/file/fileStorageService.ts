@@ -7,7 +7,7 @@ import {
     SuccessStorageMoveResponse,
     SuccessStorageResponse,
     SuccessStorageUploadResponse
-} from "types/types";
+} from "../../types/types";
 import {getPDFMetadataAI} from "../../utils/ai/getPDFMetadataAI";
 import PdfService from "../pdf/pdfData";
 
