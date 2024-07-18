@@ -18,9 +18,7 @@ app.use(bodyParser.json());
 app.use('/api/folders',folderRoutes);
 app.use('/api/files',fileRoutes);
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('main root path ')
-});
+app.get("/", (req, res) => res.send("Express on Vercel"));
 
 app.get('/api/', (req: Request, res: Response) => {
     res.send('default root path api')
