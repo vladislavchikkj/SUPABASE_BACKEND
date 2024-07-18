@@ -5,7 +5,7 @@
 			"src": "index.ts",
 			"use": "@vercel/node",
 			"config": {
-				"includeFiles": ["pathConfig.js"]
+				"includeFiles": ["dist/**/*", "pathConfig.js"]
 			}
 		}
 	],
