@@ -1,29 +1,41 @@
-import dotenv from "dotenv";
-import {createClient, SupabaseClient as SupabaseClientType } from "@supabase/supabase-js";
-import {EnvConfig} from "types/types";
-import {Database} from "types/supabase";
+import {
+	createClient,
+	SupabaseClient as SupabaseClientType,
+} from '@supabase/supabase-js'
+import dotenv from 'dotenv'
+import { Database } from 'types/supabase'
 
-const {SUPABASE_URL, SUPABASE_KEY} = dotenv.configDotenv().parsed as unknown as EnvConfig;
+// Загрузка переменных окружения
+dotenv.config()
 
-class SupabaseClient {
-    private static instance: SupabaseClient;
-    private client!: SupabaseClientType
+const SUPABASE_URL = process.env.SUPABASE_URL as string
+const SUPABASE_KEY = process.env.SUPABASE_KEY as string
 
-    constructor() {
-        if (!SupabaseClient.instance) {
-            this.client = createClient<Database>(SUPABASE_URL, SUPABASE_KEY);
-            SupabaseClient.instance = this;
-        }
-
-        return SupabaseClient.instance;
-    }
-
-    getClient() {
-        return this.client;
-    }
+if (!SUPABASE_URL || !SUPABASE_KEY) {
+	throw new Error('Supabase URL and KEY are required.')
 }
 
-const instance = new SupabaseClient();
-Object.freeze(instance);
+class SupabaseClient {
+	private static instance: SupabaseClient
+	private client: SupabaseClientType
 
-export default instance;
+	private constructor() {
+		this.client = createClient<Database>(SUPABASE_URL, SUPABASE_KEY)
+	}
+
+	public static getInstance(): SupabaseClient {
+		if (!SupabaseClient.instance) {
+			SupabaseClient.instance = new SupabaseClient()
+		}
+		return SupabaseClient.instance
+	}
+
+	public getClient(): SupabaseClientType {
+		return this.client
+	}
+}
+
+const instance = SupabaseClient.getInstance()
+Object.freeze(instance)
+
+export default instance
