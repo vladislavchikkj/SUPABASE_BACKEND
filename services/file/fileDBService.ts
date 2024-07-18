@@ -27,11 +27,13 @@ export default class FileDBService {
 			return { success: true, data }
 		} catch (error) {
 			console.log(error)
-			return { success: false, error: error.message }
+			return {
+				success: false,
+				error: error instanceof Error ? error.message : 'Unknown error',
+			}
 		}
 	}
 
-	// TODO Add folder_id update
 	async moveFile(toPath: string, file_id: string) {
 		try {
 			const { error } = await supabase
@@ -46,7 +48,10 @@ export default class FileDBService {
 
 			return { success: true }
 		} catch (error) {
-			return { success: false, error: error.message }
+			return {
+				success: false,
+				error: error instanceof Error ? error.message : 'Unknown error',
+			}
 		}
 	}
 
@@ -78,7 +83,10 @@ export default class FileDBService {
 				return { success: false, error: 'No file found' }
 			}
 		} catch (error) {
-			return { success: false, error: error.message }
+			return {
+				success: false,
+				error: error instanceof Error ? error.message : 'Unknown error',
+			}
 		}
 	}
 
@@ -95,7 +103,10 @@ export default class FileDBService {
 			}
 			return { success: true }
 		} catch (error) {
-			return { success: false, error: error.message }
+			return {
+				success: false,
+				error: error instanceof Error ? error.message : 'Unknown error',
+			}
 		}
 	}
 
@@ -113,7 +124,10 @@ export default class FileDBService {
 
 			return { success: true, data: data[0] as FileDB }
 		} catch (error) {
-			return { success: false, error: error.message }
+			return {
+				success: false,
+				error: error instanceof Error ? error.message : 'Unknown error',
+			}
 		}
 	}
 }
