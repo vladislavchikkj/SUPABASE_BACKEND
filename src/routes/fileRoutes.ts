@@ -1,6 +1,6 @@
 import express from "express";
 
-import fileController from "@controllers/file/fileController";
+import fileController from "../controllers/file/fileController";
 import multer from "multer";
 
 const router = express.Router();

@@ -1,4 +1,4 @@
-import { FileDB, FileInsert } from 'types/types'
+import { FileDB, FileInsert } from '../../types/types';
 import { generateUuid } from '../../utils/uuid'
 import supabase from '../db/supabase'
 

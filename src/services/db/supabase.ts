@@ -1,7 +1,8 @@
 import dotenv from "dotenv";
 import {createClient, SupabaseClient as SupabaseClientType } from "@supabase/supabase-js";
-import {EnvConfig} from "types/types";
-import {Database} from "types/supabase";
+import {EnvConfig} from "../../types/types";
+import {Database} from "../../types/supabase";
+
 
 const {SUPABASE_URL, SUPABASE_KEY} = dotenv.configDotenv().parsed as unknown as EnvConfig;
 
