@@ -9,11 +9,11 @@
 		"skipLibCheck": true,
 		"baseUrl": "./",
 		"paths": {
-			"@utils/*": ["utils/*"],
-			"@controllers/*": ["controllers/*"],
-			"@services/*": ["services/*"],
-			"@routes/*": ["routes/*"],
-			"types/*": ["types/*"]
+			"@utils/*": ["./utils/*"],
+			"@controllers/*": ["./controllers/*"],
+			"@services/*": ["./services/*"],
+			"@routes/*": ["./routes/*"],
+			"types/*": ["./types/*"]
 		}
 	},
 	"include": ["./**/*.ts"],

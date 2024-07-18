@@ -18,10 +18,10 @@
 		"cors": "^2.8.5",
 		"dotenv": "^16.4.5",
 		"express": "^4.19.2",
+		"module-alias": "^2.2.3",
 		"multer": "^1.4.5-lts.1",
 		"pdf-parse": "^1.1.1",
-		"uuid": "^10.0.0",
-		"tsconfig-paths": "^4.2.0"
+		"uuid": "^10.0.0"
 	},
 	"devDependencies": {
 		"@types/dotenv": "^8.2.0",
@@ -35,5 +35,12 @@
 		"tsconfig-paths": "^4.2.0",
 		"tsx": "^4.16.0",
 		"typescript": "^5.5.3"
+	},
+	"_moduleAliases": {
+		"@utils": "dist/utils",
+		"@controllers": "dist/controllers",
+		"@services": "dist/services",
+		"@routes": "dist/routes",
+		"types": "dist/types"
 	}
 }
