@@ -17,6 +17,7 @@ export default class FolderDBService {
 						created_at: new Date().toISOString(),
 					},
 				])
+				.select()
 				.single()
 
 			if (error) {
@@ -25,7 +26,7 @@ export default class FolderDBService {
 			}
 
 			console.log('Folder created in DB successfully:', data)
-			return { success: true, data }
+			return { success: true, data } // Вернуть объект с данными папки
 		} catch (error) {
 			console.log('Exception during folder creation:', error)
 			return { success: false, error: error.message }

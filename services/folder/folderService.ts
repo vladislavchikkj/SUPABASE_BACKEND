@@ -84,6 +84,7 @@ export default class FolderService {
 				.getClient()
 				.from('folders')
 				.insert([folder])
+				.select()
 				.single()
 
 			if (folderError) {
@@ -91,9 +92,29 @@ export default class FolderService {
 				throw folderError
 			}
 
-			return { success: true, folder: folderData }
+			return { success: true, data: folderData } // Вернуть объект с данными папки
 		} catch (error) {
 			throw new Error(`Error creating folder: ${error.message}`)
+		}
+	}
+
+	async deleteFolder(folderId) {
+		try {
+			const { data, error } = await supabase
+				.getClient()
+				.from('folders')
+				.delete()
+				.eq('id', folderId)
+
+			if (error) {
+				console.log('Error deleting folder:', error)
+				return { success: false, error: error.message }
+			}
+
+			return { success: true, data }
+		} catch (error) {
+			console.log('Exception during folder deletion:', error)
+			return { success: false, error: error.message }
 		}
 	}
 
@@ -123,6 +144,6 @@ export default class FolderService {
 			}
 		}
 
-		return path.reverse();
+		return path.reverse()
 	}
 }

@@ -54,7 +54,25 @@ class FolderController {
 				return res.status(404).json({ message: 'Error creating folder' })
 			}
 		} catch (error) {
-			const { statusCode, message } = handleError(error)
+			const statusCode = 500
+			const message = 'Internal Server Error'
+			return res.status(statusCode).json({ message })
+		}
+	}
+
+	async deleteFolder(req: Request, res: Response) {
+		try {
+			const { folderId } = req.params
+			const result = await folderService.deleteFolder(folderId)
+
+			if (result.success) {
+				return res.status(200).json({ message: 'Folder deleted successfully' })
+			} else {
+				return res.status(404).json({ message: 'Error deleting folder' })
+			}
+		} catch (error) {
+			const statusCode = 500
+			const message = 'Internal Server Error'
 			return res.status(statusCode).json({ message })
 		}
 	}
