@@ -1,21 +1,21 @@
 {
-	"compilerOptions": {
-		"target": "ES6",
-		"module": "commonjs",
-		"rootDir": "./src",
-		"outDir": "./dist",
-		"esModuleInterop": true,
-		"strict": true,
-		"skipLibCheck": true,
-		"baseUrl": "./",
-		"paths": {
-			"@utils/*": ["src/utils/*"],
-			"@controllers/*": ["src/controllers/*"],
-			"@services/*": ["src/services/*"],
-			"@routes/*": ["src/routes/*"],
-			"types/*": ["src/types/*"]
-		}
-	},
-	"include": ["src/**/*"],
-	"exclude": ["node_modules", "**/*.spec.ts"]
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": "./",
+    "paths": {
+      "@utils/*": ["utils/*"],
+      "@controllers/*": ["controllers/*"],
+      "@services/*": ["services/*"],
+      "@routes/*": ["routes/*"],
+      "types/*": ["types/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }

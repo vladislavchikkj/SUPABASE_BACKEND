@@ -1,10 +1,11 @@
-import { FileDB, FileInsert } from '../../types/types';
+import { FileDB, FileInsert } from 'types/types'
 import { generateUuid } from '../../utils/uuid'
 import supabase from '../db/supabase'
 
 export default class FileDBService {
 	async uploadFile(file: FileInsert) {
 		try {
+			console.log('Uploading file to DB:', file)
 			const { data, error } = await supabase
 				.getClient()
 				.from('files')
@@ -20,26 +21,25 @@ export default class FileDBService {
 				])
 
 			if (error) {
-				console.log(error)
+				console.log('Error uploading file to DB:', error)
 				throw error
 			}
 
+			console.log('File uploaded to DB successfully:', data)
 			return { success: true, data }
 		} catch (error) {
-			console.log(error)
-			return {
-				success: false,
-				error: error instanceof Error ? error.message : 'Unknown error',
-			}
+			console.log('Exception during DB upload:', error)
+			return { success: false, error: error.message }
 		}
 	}
 
-	async moveFile(toPath: string, file_id: string) {
+	// TODO Add folder_id update
+	async moveFile(toPath: string, file_id: string, folder_id: string) {
 		try {
 			const { error } = await supabase
 				.getClient()
 				.from('files')
-				.update({ file_url: toPath })
+				.update({ file_url: toPath, folder_id })
 				.eq('id', file_id)
 
 			if (error) {
@@ -48,10 +48,7 @@ export default class FileDBService {
 
 			return { success: true }
 		} catch (error) {
-			return {
-				success: false,
-				error: error instanceof Error ? error.message : 'Unknown error',
-			}
+			return { success: false, error: error.message }
 		}
 	}
 
@@ -83,10 +80,7 @@ export default class FileDBService {
 				return { success: false, error: 'No file found' }
 			}
 		} catch (error) {
-			return {
-				success: false,
-				error: error instanceof Error ? error.message : 'Unknown error',
-			}
+			return { success: false, error: error.message }
 		}
 	}
 
@@ -103,10 +97,7 @@ export default class FileDBService {
 			}
 			return { success: true }
 		} catch (error) {
-			return {
-				success: false,
-				error: error instanceof Error ? error.message : 'Unknown error',
-			}
+			return { success: false, error: error.message }
 		}
 	}
 
@@ -124,10 +115,24 @@ export default class FileDBService {
 
 			return { success: true, data: data[0] as FileDB }
 		} catch (error) {
-			return {
-				success: false,
-				error: error instanceof Error ? error.message : 'Unknown error',
+			return { success: false, error: error.message }
+		}
+	}
+	async getUserFiles(user_id: string) {
+		try {
+			const { data, error } = await supabase
+				.getClient()
+				.from('files')
+				.select('*, file_data(*)')
+				.eq('user_id', user_id)
+
+			if (error) {
+				throw error
 			}
+
+			return { success: true, data: data as FileDB[] }
+		} catch (error) {
+			return { success: false, error: error.message }
 		}
 	}
 }

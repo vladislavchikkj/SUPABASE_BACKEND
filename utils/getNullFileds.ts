@@ -1,4 +1,4 @@
-import {JSONStructure} from "../types/types";
+import {JSONStructure} from "types/types";
 
 
 export function getNullFields(json: JSONStructure, prefix = ''): string[] {

@@ -1,8 +1,8 @@
 import gemini from "../../services/ai/gemini";
-import {createPrompt} from "./createPrompt";
-import {getPdfBasicInfo} from "../getPdfBasicInfo";
 import {metadataDefaultTemplate} from "./aiTemplates";
 import {AIBasicPDFInformation} from "../../types/types";
+import {getPdfBasicInfo} from "../getPdfBasicInfo";
+import {createPrompt} from "./createPrompt";
 
 // TODO Replace with the correct types
 export async function getPDFMetadataAI(dataBuffer: Buffer): Promise<AIBasicPDFInformation> {
@@ -12,7 +12,13 @@ export async function getPDFMetadataAI(dataBuffer: Buffer): Promise<AIBasicPDFIn
 
         const response = data.response.text();
         const cleanedJsonString = response.trim().replace(/^```json/, '').replace(/```$/, '').trim();
-        const parsedDocument = JSON.parse(cleanedJsonString);
+        const jsonEndIndex = cleanedJsonString.indexOf('```')
+        const jsonString =
+            jsonEndIndex !== -1
+                ? cleanedJsonString.substring(0, jsonEndIndex).trim()
+                : cleanedJsonString
+
+        const parsedDocument = JSON.parse(jsonString);
 
         return parsedDocument["Basic Information"]; // TMP SOLUTION JUST TO CHECK
     } catch (error) {

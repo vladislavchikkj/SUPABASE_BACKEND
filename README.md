@@ -2,18 +2,53 @@
 
 This backend repository is currently under development.
 
-## To run the project, execute the following commands:
+## Setup Instructions
 
-```bash
-npm install
-npm run dev
-```
+### Prerequisites
 
-## Additionally, you need to create a .env file and include the following Supabase API keys:
+1. **Node.js**: Install Node.js version 20 or higher.
 
-```
-SUPABASE_URL=<your-supabase-url>
-SUPABASE_KEY=<your-supabase-key>
-```
+### Step-by-Step Setup
 
-## Project structure ,code style guide and branching strategy will be described later.
+1. **Clone the Repository**
+
+   ```bash
+   git clone <repository-url>
+   cd researchcollab-backend
+
+    ```
+   
+2. **Install Dependencies**
+
+    ```bash
+    npm install
+    ```
+   
+3. Create Environment Variables
+
+    Create a `.env` file in the root directory of the project and add the following environment variables:
+
+    ```bash
+    SUPABASE_URL=<your-supabase-url>
+    SUPABASE_KEY=<your-supabase-key>
+    GEMINI_API_KEY_SECRET=<your-gemini-api-key-secret>
+    ```
+   
+4. **Generate supabase types if needed**
+
+    ```bash
+   npx supabase gen types typescript --project-id "nieenykvkjphblhvunmk" --schema public > types/supabase.ts
+    ```
+   
+5. **Modify pdf-parser**
+
+    MComment out all code from lines 10 to 26 in the pdf-parser module located in node_modules.
+
+6. **Run the Project**
+
+    ```bash
+   npm run dev
+    ```
+
+## Notes
+Project Structure, Code Style Guide, and Branching Strategy: These will be described later.

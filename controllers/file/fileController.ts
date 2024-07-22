@@ -1,7 +1,7 @@
+import { handleError } from '@utils/erroHandler'
 import { Request, Response } from 'express'
 import fileServiceClass from '../../services/file/fileService'
 import { FileMoveParams } from '../../types/types'
-import {handleError} from "../../utils/erroHandler";
 
 const fileService = new fileServiceClass()
 
@@ -17,16 +17,19 @@ interface FileQuery {
 class FileController {
 	async uploadFile(req: Request, res: Response) {
 		try {
+			console.log('Upload file request received')
 			const result = await fileService.uploadFile(req, res)
 			if (result) {
+				console.log('File uploaded successfully')
 				res
 					.status(200)
 					.json({ success: true, message: 'File uploaded successfully' })
 			} else {
+				console.log('Error uploading file')
 				res.status(404).json({ message: 'Error uploading file' })
 			}
 		} catch (error) {
-			console.log(error)
+			console.log('Exception during file upload:', error)
 			const { statusCode, message } = handleError(error)
 			res.status(statusCode).json({ message })
 		}
@@ -37,10 +40,10 @@ class FileController {
 		res: Response
 	) {
 		try {
-			const { fromPath, toPath } = req.query
+			const { fromPath, toPath,folderId } = req.query
 			const { fileId } = req.params
 
-			const result = await fileService.moveFile(fromPath, toPath, fileId)
+			const result = await fileService.moveFile(fromPath, toPath, fileId, folderId)
 			if (result) {
 				res
 					.status(200)
@@ -115,7 +118,7 @@ class FileController {
 	}
 
 	async getFileInfo(
-		req: Request<FileParams, {}, {}, Pick<FileMoveParams, 'file_id'>>,
+		req: Request<FileParams, {}, {}, { 'file_id': string }>,
 		res: Response
 	) {
 		try {
@@ -126,6 +129,21 @@ class FileController {
 				res.status(200).json(result.data)
 			} else {
 				res.status(404).json({ message: 'Error getting file info' })
+			}
+		} catch (error) {
+			const { statusCode, message } = handleError(error)
+			res.status(statusCode).json({ message })
+		}
+	}
+	async getUserFiles(req: Request<{ userId: string }>, res: Response) {
+		try {
+			const { userId } = req.params
+			const result = await fileService.getUserFiles(userId)
+
+			if (result) {
+				res.status(200).json(result.data)
+			} else {
+				res.status(404).json({ message: 'Error getting user files' })
 			}
 		} catch (error) {
 			const { statusCode, message } = handleError(error)

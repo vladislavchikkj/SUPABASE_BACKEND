@@ -16,9 +16,10 @@ export type Folder = {
 // Тип для вставки новой папки
 export type FolderInsert = {
     id?: string; // UUID генерируется автоматически, если не предоставлен
-    name: string;
-    parent_folder_id?: string | null;
+    folder_name: string;
+    parent_id?: string | null;
     user_id?: string | null;
+    is_root?: boolean;
     created_at?: string | null;
 };
 
@@ -96,7 +97,7 @@ export type StorageApiUploadResponse = SuccessStorageUploadResponse | ErrorStora
 export  interface FileMoveParams {
     fromPath: string;
     toPath: string;
-    file_id: string;
+    folderId: string;
 }
 export interface SuccessStorageMoveResponse {
     data: { message: string };
